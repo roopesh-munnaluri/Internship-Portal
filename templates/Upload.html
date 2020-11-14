@@ -1,0 +1,16 @@
+
+{% block content %}
+
+    <div style="background-color:orange;" >
+
+        <h3>Internship Data Upload</h3>
+    </div>
+    <div style="height:5vh;background-color:green;">
+            <form method="post" enctype="multipart/form-data",action = ".">
+                {% csrf_token %}
+                <input type="file" name="docfile">
+                <button type="submit" name="submit" value="Upload"> Upload Excel </button>
+            </form>
+    </div>
+    <marquee>UNH Internship data</marquee>
+{% endblock content %}

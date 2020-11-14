@@ -7,7 +7,7 @@ from django.db import models
 
 from model_utils.models import TimeStampedModel
 
-class Student(TimeStampedModel):
+class Student(models.Model):
     """
     database columns for student table
     """
@@ -24,7 +24,7 @@ class Student(TimeStampedModel):
         name = self.last_name + " " +  self.first_name
         return name
 
-class Internship_Assignment(TimeStampedModel):
+class Internship_Assignment(models.Model):
     """
     database columns for InternshipAssignment table
     """
