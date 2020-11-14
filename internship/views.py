@@ -18,9 +18,16 @@ class FileuploadView(TemplateView):
         student = []
         internship_assignment = []
         internship =[]
+        id = 1
         for i in range(2,sheet.max_row+1):
-            a = Student(sheet.cell(row=int(i), column=1).value,
-                        sheet.cell(row=int(i), column=4).value,
+            std = [id, sheet.cell(row=int(i), column=4).value,
+                        sheet.cell(row=int(i), column=2).value,
+                        sheet.cell(row=int(i), column=3).value,
+                        sheet.cell(row=int(i), column=8).value,
+                        sheet.cell(row=int(i), column=5).value,
+                        sheet.cell(row=int(i), column=6).value,
+                        sheet.cell(row=int(i), column=7).value]
+            a = Student(id, sheet.cell(row=int(i), column=4).value,
                         sheet.cell(row=int(i), column=2).value,
                         sheet.cell(row=int(i), column=3).value,
                         sheet.cell(row=int(i), column=8).value,
@@ -28,6 +35,8 @@ class FileuploadView(TemplateView):
                         sheet.cell(row=int(i), column=6).value,
                         sheet.cell(row=int(i), column=7).value)
             a.save()
+            id = id + 1
+            student.append(std)
 
     def import_file(request):
         if request.method=='POST' and 'docfile' in request.FILES:

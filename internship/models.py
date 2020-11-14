@@ -11,7 +11,7 @@ class Student(models.Model):
     """
     database columns for student table
     """
-    student_id = models.AutoField("Student_id", primary_key = True)
+    student_id = models.IntegerField("Student_id", primary_key = True)
     unh_id = models.CharField("UNH_id", blank = False, max_length=15)
     last_name = models.CharField("Last Name", max_length=255)
     first_name = models.CharField("First Name", max_length=255)
