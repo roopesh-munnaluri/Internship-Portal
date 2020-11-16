@@ -12,7 +12,7 @@ class Student(models.Model):
     database columns for student table
     """
     student_id = models.IntegerField("Student_id", primary_key = True)
-    unh_id = models.CharField("UNH_id", blank = False, max_length=15)
+    unh_id = models.CharField("UNH_id", blank = False, max_length=255)
     last_name = models.CharField("Last Name", max_length=255)
     first_name = models.CharField("First Name", max_length=255)
     school_email = models.EmailField("School Mail_Id", max_length=255)
@@ -35,8 +35,8 @@ class Internship_Assignment(models.Model):
     semester = models.CharField("Semester", max_length = 10)
     year = models.CharField("Year", max_length = 10)
     instructor = models.CharField("Instructor", max_length = 36)
-    start_date = models.DateField("Start Date")
-    end_date = models.DateField("End Date")
+    start_date = models.CharField("Start Date", max_length = 36)
+    end_date = models.CharField("End Date", max_length = 36)
 
     def __str__(self):
         return self.course_id
@@ -45,7 +45,7 @@ class Internship(TimeStampedModel):
     """
     database columns for Internship table
     """
-    internship_id = models.AutoField("Internship_Id", primary_key = True)
+    internship_id = models.IntegerField("Internship_Id", primary_key = True)
     position = models.CharField("Position", max_length = 100)
     pay = models.CharField("Pay per Hour", max_length = 5)
     organization_name = models.CharField("Organization_Name", max_length = 255)

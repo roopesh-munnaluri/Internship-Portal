@@ -19,6 +19,7 @@ class FileuploadView(TemplateView):
         internship_assignment = []
         internship =[]
         id = 1
+        intern_id  = 1
         for i in range(2,sheet.max_row+1):
             std = [id, sheet.cell(row=int(i), column=4).value,
                         sheet.cell(row=int(i), column=2).value,
@@ -34,9 +35,74 @@ class FileuploadView(TemplateView):
                         sheet.cell(row=int(i), column=5).value,
                         sheet.cell(row=int(i), column=6).value,
                         sheet.cell(row=int(i), column=7).value)
-            a.save()
+
+            if i == 1:
+                address = sheet.cell(row=int(i), column=20).value + " " + sheet.cell(row=int(i), column=21).value + " " + sheet.cell(row=int(i), column=22).value + " " + "Pincode"
+            else:
+                address = sheet.cell(row=int(i), column=20).value + " " + sheet.cell(row=int(i), column=21).value + " " + sheet.cell(row=int(i), column=22).value + " " + str(sheet.cell(row=int(i), column=23).value)
+
+            intern = [sheet.cell(row=int(i), column=14).value,
+            sheet.cell(row=int(i), column=15).value,
+            sheet.cell(row=int(i), column=18).value,
+            sheet.cell(row=int(i), column=19).value,
+            address,
+            sheet.cell(row=int(i), column=24).value,
+            sheet.cell(row=int(i), column=25).value,
+            sheet.cell(row=int(i), column=26).value,
+            sheet.cell(row=int(i), column=27).value]
+            print(intern)
+
+            I = Internship(intern_id,sheet.cell(row=int(i), column=14).value,
+            str(sheet.cell(row=int(i), column=15).value),
+            sheet.cell(row=int(i), column=18).value,
+            sheet.cell(row=int(i), column=19).value,
+            address,
+            sheet.cell(row=int(i), column=24).value,
+            sheet.cell(row=int(i), column=25).value,
+            sheet.cell(row=int(i), column=26).value,
+            sheet.cell(row=int(i), column=27).value
+            )
+
+
+            intern_assign = [sheet.cell(row=int(i), column=9).value,
+            str(sheet.cell(row=int(i), column=10).value),
+            sheet.cell(row=int(i), column=11).value,
+            str(sheet.cell(row=int(i), column=12).value),
+            sheet.cell(row=int(i), column=13).value,
+            str(sheet.cell(row=int(i), column=16).value),
+            str(sheet.cell(row=int(i), column=17).value),]
+
+
+
+            b = Internship_Assignment(sheet.cell(row=int(i), column=9).value,
+            str(sheet.cell(row=int(i), column=10).value),
+            sheet.cell(row=int(i), column=11).value,
+            str(sheet.cell(row=int(i), column=12).value),
+            sheet.cell(row=int(i), column=13).value,
+            str(sheet.cell(row=int(i), column=16).value),
+            str(sheet.cell(row=int(i), column=17).value))
+
+
+
+
+
             id = id + 1
+            intern_id = intern_id + 1
+
+            a.save()
             student.append(std)
+
+            I.save()
+            internship.append(intern)
+
+
+            b.save()
+            internship_assignment.append(intern_assign)
+
+
+
+
+
 
     def import_file(request):
         if request.method=='POST' and 'docfile' in request.FILES:
