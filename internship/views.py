@@ -35,6 +35,8 @@ class FileuploadView(TemplateView):
                         sheet.cell(row=int(i), column=5).value,
                         sheet.cell(row=int(i), column=6).value,
                         sheet.cell(row=int(i), column=7).value)
+            a.save()
+            student.append(std)
 
             if i == 1:
                 address = sheet.cell(row=int(i), column=20).value + " " + sheet.cell(row=int(i), column=21).value + " " + sheet.cell(row=int(i), column=22).value + " " + "Pincode"
@@ -50,7 +52,6 @@ class FileuploadView(TemplateView):
             sheet.cell(row=int(i), column=25).value,
             sheet.cell(row=int(i), column=26).value,
             sheet.cell(row=int(i), column=27).value]
-            print(intern)
 
             I = Internship(intern_id,sheet.cell(row=int(i), column=14).value,
             str(sheet.cell(row=int(i), column=15).value),
@@ -60,9 +61,9 @@ class FileuploadView(TemplateView):
             sheet.cell(row=int(i), column=24).value,
             sheet.cell(row=int(i), column=25).value,
             sheet.cell(row=int(i), column=26).value,
-            sheet.cell(row=int(i), column=27).value
-            )
-
+            sheet.cell(row=int(i), column=27).value)
+            I.save()
+            internship.append(intern)
 
             intern_assign = [sheet.cell(row=int(i), column=9).value,
             str(sheet.cell(row=int(i), column=10).value),
@@ -72,8 +73,6 @@ class FileuploadView(TemplateView):
             str(sheet.cell(row=int(i), column=16).value),
             str(sheet.cell(row=int(i), column=17).value),]
 
-
-
             b = Internship_Assignment(sheet.cell(row=int(i), column=9).value,
             str(sheet.cell(row=int(i), column=10).value),
             sheet.cell(row=int(i), column=11).value,
@@ -82,26 +81,10 @@ class FileuploadView(TemplateView):
             str(sheet.cell(row=int(i), column=16).value),
             str(sheet.cell(row=int(i), column=17).value))
 
-
-
-
-
-            id = id + 1
-            intern_id = intern_id + 1
-
-            a.save()
-            student.append(std)
-
-            I.save()
-            internship.append(intern)
-
-
             b.save()
             internship_assignment.append(intern_assign)
-
-
-
-
+            id = id + 1
+            intern_id = intern_id + 1
 
 
     def import_file(request):
