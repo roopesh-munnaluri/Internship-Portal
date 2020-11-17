@@ -20,6 +20,7 @@ class FileuploadView(TemplateView):
         internship =[]
         id = 1
         intern_id  = 1
+        intern_assing_id = 1
         for i in range(2,sheet.max_row+1):
             std = [id, sheet.cell(row=int(i), column=3).value,
                         sheet.cell(row=int(i), column=1).value,
@@ -74,7 +75,8 @@ class FileuploadView(TemplateView):
             str(sheet.cell(row=int(i), column=16).value),
             str(sheet.cell(row=int(i), column=17).value),]
 
-            b = Internship_Assignment(sheet.cell(row=int(i), column=9).value,
+            b = Internship_Assignment(intern_assing_id,id,intern_id,
+            sheet.cell(row=int(i), column=9).value,
             str(sheet.cell(row=int(i), column=10).value),
             sheet.cell(row=int(i), column=11).value,
             str(sheet.cell(row=int(i), column=12).value),
@@ -86,6 +88,7 @@ class FileuploadView(TemplateView):
             internship_assignment.append(intern_assign)
             id = id + 1
             intern_id = intern_id + 1
+            intern_assing_id = intern_assing_id + 1
 
 
     def import_file(request):

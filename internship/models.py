@@ -47,7 +47,7 @@ class Internship_Assignment(models.Model):
     """
     database columns for InternshipAssignment table
     """
-    Student_id = models.ForeignKey('Student', on_delete=models.CASCADE)
+    student_id = models.ForeignKey('Student', on_delete=models.CASCADE)
     internship_id = models.ForeignKey('Internship', on_delete=models.CASCADE)
     course_id = models.CharField("Couse_id", max_length = 20)
     credits = models.CharField("Credits", max_length = 10)
