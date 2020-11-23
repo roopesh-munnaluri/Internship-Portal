@@ -60,10 +60,6 @@ class FileuploadView(TemplateView):
                         sheet.cell(row=int(i), column=8).value)
             a.save()
             student.append(std)
-<<<<<<< HEAD
-=======
-            print(student)
->>>>>>> 5275a6a4e690e5cfe27036f5c11064cdea7d41c7
 
             if i == 1:
                 address = sheet.cell(row=int(i), column=20).value + " " + sheet.cell(row=int(i), column=21).value + " " + sheet.cell(row=int(i), column=22).value + " " + "Pincode"
@@ -79,11 +75,7 @@ class FileuploadView(TemplateView):
             sheet.cell(row=int(i), column=25).value,
             sheet.cell(row=int(i), column=26).value,
             sheet.cell(row=int(i), column=27).value]
-<<<<<<< HEAD
             print(intern_id,'intern_id')
-=======
-
->>>>>>> 5275a6a4e690e5cfe27036f5c11064cdea7d41c7
             I = Internship(intern_id,sheet.cell(row=int(i), column=14).value,
             str(sheet.cell(row=int(i), column=15).value),
             sheet.cell(row=int(i), column=18).value,
@@ -93,10 +85,7 @@ class FileuploadView(TemplateView):
             sheet.cell(row=int(i), column=25).value,
             sheet.cell(row=int(i), column=26).value,
             sheet.cell(row=int(i), column=27).value)
-<<<<<<< HEAD
             print(I,'jdhqejf')
-=======
->>>>>>> 5275a6a4e690e5cfe27036f5c11064cdea7d41c7
             I.save()
             internship.append(intern)
 
@@ -108,7 +97,6 @@ class FileuploadView(TemplateView):
             str(sheet.cell(row=int(i), column=16).value),
             str(sheet.cell(row=int(i), column=17).value),]
 
-<<<<<<< HEAD
 
             intern_assign = [sheet.cell(row=int(i), column=9).value,
             str(sheet.cell(row=int(i), column=10).value),
@@ -118,8 +106,6 @@ class FileuploadView(TemplateView):
             str(sheet.cell(row=int(i), column=16).value),
             str(sheet.cell(row=int(i), column=17).value),]
 
-=======
->>>>>>> 5275a6a4e690e5cfe27036f5c11064cdea7d41c7
             b = Internship_Assignment(intern_assing_id,id,intern_id,
             sheet.cell(row=int(i), column=9).value,
             str(sheet.cell(row=int(i), column=10).value),
@@ -129,16 +115,11 @@ class FileuploadView(TemplateView):
             str(sheet.cell(row=int(i), column=16).value),
             str(sheet.cell(row=int(i), column=17).value))
 
-<<<<<<< HEAD
             b.save()
             internship_assignment.append(intern_assign)
             id = id + 1
             intern_id = intern_id + 1
             intern_assing_id = intern_assing_id + 1
-
-
-
-
 
             id = id + 1
             intern_id = intern_id + 1
@@ -149,15 +130,8 @@ class FileuploadView(TemplateView):
             I.save()
             internship.append(intern)
 
-
-=======
->>>>>>> 5275a6a4e690e5cfe27036f5c11064cdea7d41c7
             b.save()
             internship_assignment.append(intern_assign)
-            id = id + 1
-            intern_id = intern_id + 1
-            intern_assing_id = intern_assing_id + 1
-
 
     def import_file(request):
         if request.method=='POST' and 'docfile' in request.FILES:
@@ -175,6 +149,7 @@ class InternshipListView(ListView):
     model = Internship.objects.all()
 
 from internship.models import *
+
 def remove_all_data(request):
 
         Student.objects.all().delete()
