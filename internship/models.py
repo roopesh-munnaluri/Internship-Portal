@@ -12,7 +12,7 @@ class Student(models.Model):
     database columns for student table
     """
     student_id = models.IntegerField("Student_id", primary_key = True)
-    unh_id = models.CharField("UNH_id", blank = False, max_length=255)
+    unh_id = models.CharField("UNH_id", unique = True, blank = False, max_length=15)
     last_name = models.CharField("Last Name", max_length=255)
     first_name = models.CharField("First Name", max_length=255)
     school_email = models.EmailField("School Mail_Id", max_length=255)
@@ -23,6 +23,25 @@ class Student(models.Model):
     def __str__(self):
         name = self.last_name + " " +  self.first_name
         return name
+
+class Internship(models.Model):
+    """
+    database columns for Internship table
+    """
+    internship_id = models.IntegerField("Internship_Id", primary_key = True)
+    position = models.CharField("Position", max_length = 100)
+    pay = models.CharField("Pay per Hour", max_length = 5)
+    organization_name = models.CharField("Organization_Name", max_length = 255)
+    organization_url = models.CharField("Organization_url", max_length = 255, null = False)
+    organization_address = models.CharField("Organization_Address",max_length = 255)
+    supervisor_name = models.CharField("SuperVisor Name", max_length = 255)
+    supervisor_position = models.CharField("Supervisor Position" ,max_length = 255)
+    supervisor_email = models.CharField("Supervisor Email", max_length = 255)
+    supervisor_phone = models.CharField("SuperVisor Phone", max_length = 255)
+
+    def __str__(self):
+        return self.position + self.organization_name
+
 
 class Internship_Assignment(models.Model):
     """
@@ -40,21 +59,3 @@ class Internship_Assignment(models.Model):
 
     def __str__(self):
         return self.course_id
-
-class Internship(TimeStampedModel):
-    """
-    database columns for Internship table
-    """
-    internship_id = models.IntegerField("Internship_Id", primary_key = True)
-    position = models.CharField("Position", max_length = 100)
-    pay = models.CharField("Pay per Hour", max_length = 5)
-    organization_name = models.CharField("Organization_Name", max_length = 255)
-    organization_url = models.CharField("Organization_url", max_length = 255)
-    organization_address = models.CharField("Organization_Address",max_length = 255)
-    supervisor_name = models.CharField("SuperVisor Name", max_length = 255)
-    supervisor_position = models.CharField("Supervisor Position" ,max_length = 255)
-    supervisor_email = models.CharField("Supervisor Email", max_length = 255)
-    supervisor_phone = models.CharField("SuperVisor Phone", max_length = 255)
-
-    def __str__(self):
-        return self.position + self.organization_name
