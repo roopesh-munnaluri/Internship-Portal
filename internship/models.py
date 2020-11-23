@@ -57,4 +57,4 @@ class Internship_Assignment(models.Model):
     end_date = models.CharField("End Date", max_length=36)
 
     def __str__(self):
-        return self.course_id
+        return str(self.course_id)
