@@ -4,7 +4,7 @@ author: Mukesh
 Date: 11/22/2020
 """
 from django import forms
-from .models import Student
+from .models import Student # pylint: disable=relative-beyond-top-level
 
 
 class StudentSearchForm(forms.ModelForm): # pylint: disable=too-few-public-methods
