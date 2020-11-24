@@ -12,7 +12,7 @@ class HomepageView(TemplateView):
     """
     template for home page
     """
-    template_name = 'index.html'
+    template_name = 'base.html'
 
 class FileuploadView(TemplateView):
     """
@@ -24,12 +24,12 @@ class FileuploadView(TemplateView):
         """
         getting file name from template
         """
-        if request.method=='POST' and 'docfile' in request.FILES:
-            files = request.FILES['docfile']
-            if files is None:
-                import_faker.import_faker()
+        if request.method=='POST' :
+            if 'docfile' in request.FILES:
+                files = request.FILES['docfile']
+                import_data.import_data(files)
             else:
-                import_data.import_data(files)            
+                import_faker.import_faker()
         return render(request, 'Upload.html')
 
 class StudentListView(ListView): # pylint: disable=too-many-ancestors
@@ -51,9 +51,7 @@ class StudentListView(ListView): # pylint: disable=too-many-ancestors
             'form' : form
         }
         if request.method == 'POST':
-            student_items = Student.objects.filter(first_name__icontains=form['first_name'].value(),
-                                              last_name__icontains=form['last_name'].value()
-                                              )
+            student_items = Student.objects.filter(last_name__icontains=form['last_name'].value())
             context = {
                 "student_items" : student_items,
                 "form": form

@@ -17,4 +17,4 @@ class StudentSearchForm(forms.ModelForm): # pylint: disable=too-few-public-metho
         For including fields for searching
         """
         model = Student
-        fields = ['first_name', 'last_name']
+        fields = ['last_name']
