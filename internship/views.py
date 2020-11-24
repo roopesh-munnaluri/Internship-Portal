@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from .models import Student, Internship_Assignment,Internship
 from .forms import StudentSearchForm
-from .imports import import_data
+from .imports import import_data, import_faker
 
 
 class HomepageView(TemplateView):
@@ -26,9 +26,10 @@ class FileuploadView(TemplateView):
         """
         if request.method=='POST' and 'docfile' in request.FILES:
             files = request.FILES['docfile']
-            import_data.import_data(files)
-        else:
-            import_faker.import_faker()
+            if files is None:
+                import_faker.import_faker()
+            else:
+                import_data.import_data(files)            
         return render(request, 'Upload.html')
 
 class StudentListView(ListView): # pylint: disable=too-many-ancestors
@@ -57,7 +58,7 @@ class StudentListView(ListView): # pylint: disable=too-many-ancestors
                 "student_items" : student_items,
                 "form": form
             }
-        return render(request, 'index.html', context)
+        return render(request, 'students_list.html', context)
 
 
 
