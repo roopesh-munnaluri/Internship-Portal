@@ -4,7 +4,7 @@ views.py
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from .models import Student, Internship_Assignment,Internship
-from .forms import StudentSearchForm
+from .forms import StudentSearchForm,InternshipSearchForm,InternshipassignmentSearchForm
 from .imports import import_data, import_faker
 
 
@@ -59,18 +59,51 @@ class StudentListView(ListView): # pylint: disable=too-many-ancestors
         return render(request, 'students_list.html', context)
 
 
-
-class Internship_AssignmentListView(ListView): # pylint: disable=too-many-ancestors
-    """
-    listing all the details of Internship_Assignment table
-    """
-    model = Internship_Assignment.objects.all()
-
 class InternshipListView(ListView): # pylint: disable=too-many-ancestors
     """
     listing all the details of Internship table
     """
-    model = Internship.objects.all()
+
+    def display_internship(request):
+        button = "Internship"
+        Internship_items = Internship.objects.all()
+        form = InternshipSearchForm(request.POST or None)
+        context = {
+            'button' : button,
+            'Internship_items' : Internship_items,
+            'form' : form
+        }
+        if request.method == 'POST':
+            Internship_items = Internship.objects.filter(organization_name__icontains=form['organization_name'].value())
+            context = {
+                "Internship_items" : Internship_items,
+                "form": form
+            }
+        return render(request, 'internship_list.html', context)
+
+class InternshipassignmentListView(ListView): # pylint: disable=too-many-ancestors
+    """
+    listing all the details of Internship table
+    """
+
+    def display_internshipassignment(request):
+        button = "Internshipassignment"
+        Internshipassignment_items = Internship_Assignment.objects.all()
+        form = InternshipassignmentSearchForm(request.POST or None)
+        year = Internship_Assignment.objects.all()
+        context = {
+            'button' : button,
+            'Internshipassignmet_items' : Internshipassignment_items ,
+            'form' : form,
+        }
+        if request.method == 'POST':
+            Internshipassignment_items = Internship_Assignment.objects.filter(year__icontains=form['year'].value())
+            context = {
+                "Internshipassignment_items" : Internshipassignment_items,
+                "form": form,
+                'year' : year
+            }
+        return render(request, 'internshipassignment_list.html', context)
 
 def remove_all_data(request):
     """
