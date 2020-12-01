@@ -42,7 +42,7 @@ class Internship(models.Model):
         return self.position + self.organization_name
 
 
-class Internship_Assignment(models.Model):
+class Internship_Assignment(models.Model): #pylint: disable =invalid-name
     """
     database columns for InternshipAssignment table
     """
