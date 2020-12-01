@@ -1,16 +1,155 @@
 
-{% block content %}
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+  <head>
 
-    <div style="background-color:orange;" >
+    <title>{% block title %}UNH Insternship Data portal{% endblock title %}</title>
 
-        <h3>Internship Data Upload</h3>
+  </head>
+
+  <body>
+    <!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1 {font-family: "Raleway", Arial, sans-serif}
+h1 {letter-spacing: 6px}
+.w3-row-padding img {margin-bottom: 12px}
+</style>
+<body>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-content" style="max-width:1500px">
+
+<!-- Header -->
+<header class="w3-panel w3-center w3-opacity" style="padding:128px 16px">
+  <h1 class="w3-xlarge">University of New Hampshire Manchester</h1>
+  <h1>Internship Data</h1>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .navbar {
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  }
+
+  .dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+
+  .navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  </style>
+  </head>
+  <body>
+
+  <div class="navbar">
+    <a href={% url 'home' %}>Home</a>
+    <a href="{% url 'import_file' %}">Import Data</a>
+    <div class="dropdown">
+      <button class="dropbtn">Detail View
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{% url 'display_students' %}">Students</a>
+        <a href="{% url 'display_internship' %}">Internship</a>
+        <a href="{% url 'display_internshipassignment' %}">Internship Assignment</a>
+      </div>
     </div>
-    <div style="height:5vh;background-color:green;">
+  </div>
+
+
+</header>
+
+
+<!-- End Page Content -->
+</div>
+{% block content %}
+<div align="center">
+    <div >
+
+        <h3>Upload Internship Data</h3>
+    </div>
+    <div>
             <form method="post" enctype="multipart/form-data",action = ".">
                 {% csrf_token %}
                 <input type="file" name="docfile">
                 <button type="submit" name="submit" value="Upload"> Upload Excel </button>
             </form>
     </div>
-    <marquee>UNH Internship data</marquee>
+    <marquee>Upload UNH Internship data</marquee>
+</div>
+<br><br><br><br>
 {% endblock content %}
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-large">
+  <i class="fa fa-facebook-official w3-hover-opacity"></i>
+  <i class="fa fa-instagram w3-hover-opacity"></i>
+  <i class="fa fa-snapchat w3-hover-opacity"></i>
+  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+  <i class="fa fa-twitter w3-hover-opacity"></i>
+  <i class="fa fa-linkedin w3-hover-opacity"></i>
+
+</footer>
+
+</body>
+</html>
