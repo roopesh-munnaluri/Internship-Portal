@@ -3,77 +3,148 @@
 <html lang="en">
   <head>
 
-    <title>{% block title %}UNH-Internship-Portal{% endblock title %}</title>
-
-    {% block css %}
-
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <link href="{% static 'css/base.css' %}" rel="stylesheet">
-    {% endblock %}
+    <title>{% block title %}UNH Insternship Data portal{% endblock title %}</title>
 
   </head>
 
   <body>
+    <!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1 {font-family: "Raleway", Arial, sans-serif}
+h1 {letter-spacing: 6px}
+.w3-row-padding img {margin-bottom: 12px}
+</style>
+<body>
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+<!-- !PAGE CONTENT! -->
+<div class="w3-content" style="max-width:1500px">
 
+<!-- Header -->
+<header class="w3-panel w3-center w3-opacity" style="padding:128px 16px">
+  <h1 class="w3-xlarge">University of New Hampshire Manchester</h1>
+  <h1>Internship Data</h1>
 
-        <li class="nav-item active">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
-        <div class="logo" style="width: 1100px;">
+  .navbar {
+    overflow: hidden;
+    background-color: #333;
+  }
 
-          <h3> <a class="nav-link text-light"> UNH-Internship </a><h3>
+  .navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
 
-          <!-- <img src="https://paulcollege.unh.edu/cep/sites/paulcollege.unh.edu.cep/themes/cep/logo.png"> -->
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  }
 
-       </div>
+  .dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
 
-       <li class="nav-item active">
+  .navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+  }
 
-         <h3><a class="nav-link text-light" href="{% url 'display_students' %}" role="button"> Student </a><h3>
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
 
-       </li>
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
 
-            <li class="nav-item active">
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  </style>
+  </head>
+  <body>
 
-              <h3><a class="nav-link nav text-light"
-                href="{% url 'import_file' %}">&nbsp;  &nbsp;  &nbsp;
-                Import <span class="sr-only">(current)</span></a></h3>
-            </li>
-
-            <li class="nav-item active" >
-              <h3><a class="nav-link text-light" href="{% url 'home' %}">Sign up</a></h3>
-            </li>
-
-
-            <li class="nav-item active">
-              <h3><a class="nav-link text-light" href="{% url 'home' %}">Sign out</a></h3>
-            </li>
-            <li class="nav-item active">
-              <h3><a class="nav-link text-light" href="{% url 'remove-data' %}">Clear data</a></h3>
-            </li>
-           </div>
-        </div>
-      </nav>
-
+  <div class="navbar">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'import_file' %}">Import Data</a>
+    <div class="dropdown">
+      <button class="dropbtn">Detail View
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{% url 'display_students' %}">Students</a>
+        <a href="{% url 'display_internship' %}">Internship</a>
+        <a href="{% url 'display_internshipassignment' %}">Internship Assignment</a>
+        <a href="{% url 'remove-data' %}">Clear</a>
+      </div>
     </div>
-    <div class="container">
-      {% block content %}
-      <h1><p class="text-primary">Welcome to UNH Internship Portal!!</p></h1>
-      {% endblock content %}
-    </div> 
-    {% block modal %}{% endblock modal %}
-    {% block javascript %}
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <a href="{% url 'login' %}"> Login </a>
+  </div>
 
 
+</header>
 
-    {% endblock javascript %}
-  </body>
+
+<body>
+
+  <H2>Internship:</H2>
+  <p>For more infomation about internships please visit the UNH Career and Professional Success website.
+
+Note: Non-degree students are not permitted to register for internships through UNH unless they are enrolled in a graduate certificate program.</p>
+<br><br><br><br>
+
+</body>
+
+<!-- End Page Content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-large">
+  <i class="fa fa-facebook-official w3-hover-opacity"></i>
+  <i class="fa fa-instagram w3-hover-opacity"></i>
+  <i class="fa fa-snapchat w3-hover-opacity"></i>
+  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+  <i class="fa fa-twitter w3-hover-opacity"></i>
+  <i class="fa fa-linkedin w3-hover-opacity"></i>
+
+</footer>
+
+</body>
 </html>

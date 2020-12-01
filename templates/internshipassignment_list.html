@@ -23,6 +23,7 @@ h1 {letter-spacing: 6px}
 </style>
 <body>
 
+
 <!-- !PAGE CONTENT! -->
 <div class="w3-content" style="max-width:1500px">
 
@@ -99,7 +100,6 @@ h1 {letter-spacing: 6px}
   }
   </style>
   </head>
-  <body>
 
   <div class="navbar">
     <a href={% url 'home' %}>Home</a>
@@ -112,33 +112,61 @@ h1 {letter-spacing: 6px}
         <a href="{% url 'display_students' %}">Students</a>
         <a href="{% url 'display_internship' %}">Internship</a>
         <a href="{% url 'display_internshipassignment' %}">Internship Assignment</a>
+        <a href="{% url 'remove-data' %}">Clear</a>
       </div>
     </div>
   </div>
 
+  <br><br><br><br>
 
-</header>
+{% load crispy_forms_tags %}
+    {% block content %}
+
+        <form method="post" action="." align="center">
+          {% csrf_token %}
+          {{form|crispy}}
+          <br>
+          <input class="btn btn-primary" type="submit" value="Search" />
+
+          <br>
+          <br>
+
+
+        <table id="example" class="sortable" style="text-align:center;" cellspacing="50">
+
+            <thead align="center">
+                <tr>
+                    <th>Course ID</th>
+                    <th>Credits</th>
+                    <th>Semester</th>
+                    <th>Year</th>
+                    <th>Instructor</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for internshipassignment_item in Internshipassignment_items %}
+                <tr class="item" align="center">
+                    <td>{{internshipassignment_item.course_id}}</td>
+                    <td>{{internshipassignment_item.credits}}</td>
+                    <td>{{internshipassignment_item.semester}}</td>
+                    <td>{{internshipassignment_item.year}}</td>
+                    <td>{{internshipassignment_item.instructor}}</td>
+                    <td>{{internshipassignment_item.start_date}}</td>
+                    <td>{{internshipassignment_item.end_date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </form>
+    {% endblock content %}
 
 
 <!-- End Page Content -->
 </div>
-{% block content %}
-<div align="center">
-    <div >
-
-        <h3>Upload Internship Data</h3>
-    </div>
-    <div>
-            <form method="post" enctype="multipart/form-data",action = ".">
-                {% csrf_token %}
-                <input type="file" name="docfile">
-                <button type="submit" name="submit" value="Upload"> Upload Excel </button>
-            </form>
-    </div>
-    <marquee>Upload UNH Internship data</marquee>
-</div>
-<br><br><br><br>
-{% endblock content %}
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-large">

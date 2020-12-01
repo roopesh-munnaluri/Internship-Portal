@@ -21,7 +21,44 @@ body,h1 {font-family: "Raleway", Arial, sans-serif}
 h1 {letter-spacing: 6px}
 .w3-row-padding img {margin-bottom: 12px}
 </style>
+<script>
+function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("example");
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      //check if the two rows should switch place:
+      if (Number(x.innerHTML) > Number(y.innerHTML)) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+</script>
 <body>
+
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-content" style="max-width:1500px">
@@ -99,7 +136,6 @@ h1 {letter-spacing: 6px}
   }
   </style>
   </head>
-  <body>
 
   <div class="navbar">
     <a href={% url 'home' %}>Home</a>
@@ -112,33 +148,67 @@ h1 {letter-spacing: 6px}
         <a href="{% url 'display_students' %}">Students</a>
         <a href="{% url 'display_internship' %}">Internship</a>
         <a href="{% url 'display_internshipassignment' %}">Internship Assignment</a>
+        <a href="{% url 'remove-data' %}">Clear</a>
       </div>
     </div>
   </div>
 
+  <br><br><br><br>
 
-</header>
+{% load crispy_forms_tags %}
+    {% block content %}
+
+        <form method="post" action="." align="center">
+          {% csrf_token %}
+          {{form|crispy}}
+          <br>
+          <input class="btn btn-primary" type="submit" value="Search" />
+
+          <br>
+          <br>
+
+
+        <table id="example" class="sortable" style="text-align:center;" cellspacing="50">
+
+            <thead align="center">
+                <tr>
+                    <th>Internship ID</th>
+                    <th>Position</th>
+                    <th>Pay</th>
+                    <th>Organization name</th>
+                    <th>Organization URL</th>
+                    <th>Organization address</th>
+                    <th>SuperVisor Name</th>
+                    <th>SuperVisor Position</th>
+                    <th>SuperVisor Email</th>
+                    <th>SuperVisor Phone</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for internship_item in Internship_items %}
+                <tr class="item" align="center">
+                    <td>{{internship_item.pk}}</td>
+                    <td>{{internship_item.position}}</td>
+                    <td>{{internship_item.pay}}</td>
+                    <td>{{internship_item.organization_name}}</td>
+                    <td>{{internship_item.organization_url}}</td>
+                    <td>{{internship_item.organization_address}}</td>
+                    <td>{{internship_item.supervisor_name}}</td>
+                    <td>{{internship_item.supervisor_position}}</td>
+                    <td>{{internship_item.supervisor_email}}</td>
+                    <td>{{internship_item.supervisor_phone}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </form>
+    {% endblock content %}
 
 
 <!-- End Page Content -->
 </div>
-{% block content %}
-<div align="center">
-    <div >
-
-        <h3>Upload Internship Data</h3>
-    </div>
-    <div>
-            <form method="post" enctype="multipart/form-data",action = ".">
-                {% csrf_token %}
-                <input type="file" name="docfile">
-                <button type="submit" name="submit" value="Upload"> Upload Excel </button>
-            </form>
-    </div>
-    <marquee>Upload UNH Internship data</marquee>
-</div>
-<br><br><br><br>
-{% endblock content %}
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-large">
