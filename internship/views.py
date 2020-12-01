@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import TemplateView, ListView
 from .models import Student, Internship_Assignment,Internship
-from .forms import StudentSearchForm,InternshipSearchForm,InternshipassignmentSearchForm, NewUserForm
+from .forms import StudentSearchForm,InternshipSearchForm,InternshipassignmentSearchForm, NewUserForm   
 from .imports import import_data, import_faker
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
