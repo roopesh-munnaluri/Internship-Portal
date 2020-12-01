@@ -140,7 +140,7 @@ class Authentication(TemplateView):
             if form.is_valid():
                 form.save()
         else:
-            form = RegisterForm()
+            form = NewUserForm()
         return render(response, "register.html", {"form":form})
 
 
