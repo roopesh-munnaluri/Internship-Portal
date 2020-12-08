@@ -21,7 +21,9 @@ class HomepageView(TemplateView): #pylint: disable = no-member
     """
     template for home page
     """
-    template_name = 'base.html'
+    @login_required(login_url='/login/')
+    def home(request):
+        return render(request,'base.html')
 
 class FileuploadView(TemplateView): #pylint: disable = no-member
     """

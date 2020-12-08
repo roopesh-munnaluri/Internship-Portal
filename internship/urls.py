@@ -7,7 +7,7 @@ from . import views #pylint: disable = relative-beyond-top-level,unused-import
 
 
 urlpatterns = [
-        path('', HomepageView.as_view(), name='home'),
+        path('', HomepageView.home, name='home'),
         path('Upload/', FileuploadView.import_file, name='import_file' ),
         path('students_list/', StudentListView.display_students, name='display_students' ),
         path('internship_list/', InternshipListView.display_internship, name='display_internship' ),
