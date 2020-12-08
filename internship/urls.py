@@ -16,6 +16,8 @@ urlpatterns = [
         path('remove-data/', remove_all_data, name='remove-data' ),
         path('login/',Authentication.login_request,name = 'login'),
         path('logout/',Authentication.logout_request,name='logout'),
-        path('request/',Authentication.register_request,name = 'register')
+        path('request/',Authentication.register_request,name = 'register'),
+        path('update_student/<int:pk>/', views.studentupdate, name='update_student'),
+        path('delete/<int:pk>/', views.deleteStudent, name="delete_student" ),
 
     ]

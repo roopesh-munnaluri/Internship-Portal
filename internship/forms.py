@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from .models import Student # pylint: disable=relative-beyond-top-level
 from .models import Internship # pylint: disable=relative-beyond-top-level
 from .models import Internship_Assignment # pylint: disable=relative-beyond-top-level
+from django.forms import ModelForm
 
 class StudentSearchForm(forms.ModelForm): # pylint: disable=too-few-public-methods
     """
@@ -69,3 +70,11 @@ class NewUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
+<<<<<<< .merge_file_Bn8Mw6
+=======
+
+class StudentForm(forms.ModelForm):
+	class Meta:
+		model = Student
+		fields = ['student_id','unh_id','last_name','first_name','school_email','major','degree','linkedin']
+>>>>>>> .merge_file_0RThr6

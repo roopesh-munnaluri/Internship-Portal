@@ -1,11 +1,32 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+  <head>
 
+    <title>{% block title %}UNH Insternship Data portal{% endblock title %}</title>
+
+  </head>
+
+  <body>
+    <!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1 {font-family: "Raleway", Arial, sans-serif}
+h1 {letter-spacing: 6px}
+.w3-row-padding img {margin-bottom: 12px}
+</style>
 {% block content %}
-    <div class="container">
+<div class="w3-content" style="max-width:1500px">
         <form method="POST">
         {% csrf_token %}
         {{form.as_p}}
             <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Login</button>
         </form>
         Don't have an account? <a href="{% url 'register' %}" target="blank"><strong>register here</strong></a>!
-    </div>
+</div>
 {% endblock %}

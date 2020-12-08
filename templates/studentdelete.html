@@ -23,6 +23,7 @@ h1 {letter-spacing: 6px}
 </style>
 <body>
 
+
 <!-- !PAGE CONTENT! -->
 <div class="w3-content" style="max-width:1500px">
 
@@ -99,10 +100,9 @@ h1 {letter-spacing: 6px}
   }
   </style>
   </head>
-  <body>
 
   <div class="navbar">
-    <a href="{% url 'home' %}">Home</a>
+    <a href={% url 'home' %}>Home</a>
     <a href="{% url 'import_file' %}">Import Data</a>
     <div class="dropdown">
       <button class="dropbtn">Detail View
@@ -110,29 +110,39 @@ h1 {letter-spacing: 6px}
       </button>
       <div class="dropdown-content">
         <a href="{% url 'display_students' %}">Students</a>
-        <a href=Studentupdate"{% url 'display_internship' %}">Internship</a>
+        <a href="{% url 'display_internship' %}">Internship</a>
         <a href="{% url 'display_internshipassignment' %}">Internship Assignment</a>
         <a href="{% url 'remove-data' %}">Clear</a>
       </div>
     </div>
+  </div>
 
-    <div><a href="{% url 'login' %}"> Login </a></div>
 
+  {% block content %}
+
+<div class="main">
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <br/>
+        <h4>Hit delete button to delete record from database<h4>
+        <br>
+
+        <input type="submit" value="DELETE" style="width:13%" class="nav-link text-light">
+        <br/>
+
+        <br><br><br><br>
+        <a style=" width:13%;" class="nav-link text-light" href="{% url 'display_students' %}" role="button"> Cancel</a>
+
+    </form>
 </div>
+{% endblock %}
 
 
-</header>
 
 
-<body>
 
-  <H2>Internship:</H2>
-  <p>For more infomation about internships please visit the UNH Career and Professional Success website.
-
-Note: Non-degree students are not permitted to register for internships through UNH unless they are enrolled in a graduate certificate program.</p>
-<br><br><br><br>
-
-</body>
 
 <!-- End Page Content -->
 </div>

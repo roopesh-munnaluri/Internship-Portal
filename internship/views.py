@@ -7,8 +7,12 @@ from django.views.generic import TemplateView, ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Student, Internship_Assignment,Internship
-from .forms import StudentSearchForm,InternshipSearchForm,InternshipassignmentSearchForm,NewUserForm
+from .forms import StudentSearchForm,InternshipSearchForm,InternshipassignmentSearchForm,NewUserForm,StudentForm
 from .imports import import_data, import_faker
+from django.views.generic import UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.shortcuts import (get_object_or_404,render,HttpResponseRedirect)
+from django.contrib import messages
 
 
 class HomepageView(TemplateView): #pylint: disable = no-member
@@ -158,6 +162,31 @@ class Authentication(TemplateView):
         else:
             form = NewUserForm()
         return render(response, "register.html", {"form":form})
+
+def studentupdate(request,pk):
+    context ={}
+    obj = get_object_or_404(Student, pk = pk)
+    student_form = StudentForm(request.POST or None,instance=obj)
+    if student_form.is_valid():
+        student_form.save()
+        messages.success(request, 'Student has been successfully updated')
+    context["student_form"] = student_form
+    return render(request, "studentupdate.html", context)
+
+
+def deleteStudent(request, pk):
+    context ={}
+    obj = get_object_or_404(Student, pk = pk)
+    student_form = StudentForm(request.POST or None,instance=obj)
+    if student_form.is_valid():
+        student_form.save()
+        messages.success(request, 'Student has been successfully updated')
+    context["student_form"] = student_form
+
+    if request.method =="POST":
+        obj.delete()
+        return HttpResponseRedirect("/")
+    return render(request, "delete.html", context)
 
 
 def remove_all_data(request):
