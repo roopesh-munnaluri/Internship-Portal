@@ -2,13 +2,16 @@
 views.py
 """
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.views.generic import TemplateView, ListView
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 from .models import Student, Internship_Assignment,Internship
 from .forms import StudentSearchForm,InternshipSearchForm,InternshipassignmentSearchForm,NewUserForm
 from .imports import import_data, import_faker
+from .decorators import unauthenticated_user, allowed_users, admin_only
+from django.contrib.auth.models import Group
 
 
 class HomepageView(TemplateView): #pylint: disable = no-member
@@ -42,7 +45,7 @@ class StudentListView(ListView): # pylint: disable=too-many-ancestors
     """
     model = Student
 
-    @login_required(login_url='/login/')
+    @allowed_users(allowed_roles=['upcoming'])
     def display_students(request): #pylint: disable = no-self-argument
         """
         searching Student table based on first_name and last_name provided by user
@@ -122,43 +125,46 @@ class Authentication(TemplateView):
     """
     For Authentication of user
     """
+    @unauthenticated_user
     def login_request(request): #pylint: disable = no-self-argument
         """
         for checking username and password for login
         """
-        if request.method == 'POST': #pylint: disable = no-member
-            form = AuthenticationForm(request=request, data=request.POST) #pylint: disable = no-member
-            if form.is_valid():
-                username = form.cleaned_data.get('username')
-                password = form.cleaned_data.get('password')
-                user = authenticate(username=username, password=password)
-                if user is not None:
-                    login(request, user)
-                    return redirect('/')
-        form = AuthenticationForm()
-        return render(request = request,
-                    template_name = "login.html",
-                    context={"form":form})
-
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password =request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                messages.info(request, 'Username OR password is incorrect')
+        context = {}
+        return render(request, 'login.html', context)
     def logout_request(request): #pylint: disable = no-self-argument
         """
         logout
         """
         logout(request)
-        return redirect("/")
+        return redirect('login')
 
-    def register_request(response): #pylint: disable = no-self-argument
+
+    @unauthenticated_user
+    def register_request(request): #pylint: disable = no-self-argument
         """
         For registering user
         """
-        if response.method == "POST": #pylint: disable = no-member
-            form = NewUserForm(response.POST) #pylint: disable = no-member
+        form = NewUserForm()
+        if request.method == 'POST':
+            form = NewUserForm(request.POST)
             if form.is_valid():
-                form.save()
-        else:
-            form = NewUserForm()
-        return render(response, "register.html", {"form":form})
-
+                user = form.save()
+                group = form.cleaned_data['group']
+                group = Group.objects.get(name=group)
+                user.groups.add(group)
+                return redirect('login')
+        context = {'form':form}
+        return render(request, 'register.html', context)
 
 def remove_all_data(request):
     """
