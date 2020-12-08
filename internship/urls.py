@@ -19,5 +19,6 @@ urlpatterns = [
         path('request/',Authentication.register_request,name = 'register'),
         path('update_student/<int:pk>/', views.studentupdate, name='update_student'),
         path('delete/<int:pk>/', views.deleteStudent, name="delete_student" ),
+        path('register/',Authentication.register_request,name = 'register')
 
     ]

@@ -9,7 +9,6 @@ from django.contrib.auth.models import User, Group
 from .models import Student # pylint: disable=relative-beyond-top-level
 from .models import Internship # pylint: disable=relative-beyond-top-level
 from .models import Internship_Assignment # pylint: disable=relative-beyond-top-level
-from django.forms import ModelForm
 
 class StudentSearchForm(forms.ModelForm): # pylint: disable=too-few-public-methods
     """
@@ -60,32 +59,46 @@ class NewUserForm(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2","group")
 
-<<<<<<< HEAD
-    def save(self, commit=True):
-        """
-        For saving data
-        """
-        user = super(NewUserForm, self).save(commit=False) #pylint: disable=super-with-arguments
-        user.email = self.cleaned_data["email"]
-        if commit:
-            user.save()
-        return user
-<<<<<<< .merge_file_Bn8Mw6
-=======
-
 class StudentForm(forms.ModelForm):
-	class Meta:
+	"""
+	student form
+	"""
+	class Meta: # pylint: disable=R0903
+		"""
+		fields for student form
+		"""
 		model = Student
-		fields = ['student_id','unh_id','last_name','first_name','school_email','major','degree','linkedin']
->>>>>>> .merge_file_0RThr6
-=======
-    # def save(self, commit=True):
-    #     """
-    #     For saving data
-    #     """
-    #     user = super(NewUserForm, self).save(commit=False) #pylint: disable=super-with-arguments
-    #     user.email = self.cleaned_data["email"]
-    #     if commit:
-    #         user.save()
-    #     return user
->>>>>>> roopesh-sprint-5
+		fields = ['student_id','unh_id','last_name','first_name',
+			'school_email','major','degree','linkedin']
+
+
+class InternshipForm(forms.ModelForm):
+	"""
+	intership form
+	"""
+	class Meta: # pylint: disable=R0903
+		"""
+		fields for intership form
+		"""
+		model = Internship
+		fields = [
+			'internship_id','position','pay','organization_name',
+			'organization_url', 'organization_address',
+			'supervisor_name', 'supervisor_position',
+			'supervisor_email', 'supervisor_phone'
+		]
+
+
+class InternshipAssignmentForm(forms.ModelForm):
+	"""
+	intership Assignment form
+	"""
+
+	class Meta: # pylint: disable=R0903
+		"""
+		fields for intership Assignment form
+		"""
+
+		model = Internship_Assignment
+		fields = ['course_id','credits','semester','year',
+			'instructor','start_date','end_date']
