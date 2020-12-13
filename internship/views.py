@@ -174,6 +174,37 @@ class Authentication(TemplateView):
         print(is_customer)
         return render(request, 'register.html', context)
 
+
+class AddView(TemplateView):
+    def add_student(request):
+        form = StudentForm()
+        if request.method == 'POST':
+            form = StudentForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/')
+        return render(request, 'add_student.html', {'form':form})
+
+    def add_Intern(request):
+        form = InternshipForm()
+        if request.method == 'POST':
+            form = InternshipForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/')
+        return render(request, 'add_internship.html', {'form':form})
+
+    def add_intern_assign(request):
+        form = InternshipAssignmentForm()
+        if request.method == 'POST':
+            form = InternshipAssignmentForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/')
+        return render(request, 'add_intern_assign.html', {'form':form})
+
+
+
 @allowed_users(allowed_roles=['admin'])
 def studentupdate(request,pk):
     context ={}

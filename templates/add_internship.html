@@ -23,6 +23,7 @@ h1 {letter-spacing: 6px}
 </style>
 <body>
 
+
 <!-- !PAGE CONTENT! -->
 <div class="w3-content" style="max-width:1500px">
 
@@ -99,7 +100,6 @@ h1 {letter-spacing: 6px}
   }
   </style>
   </head>
-  <body>
 
   <div class="navbar">
     <a href="{% url 'home' %}">Home</a>
@@ -107,40 +107,7 @@ h1 {letter-spacing: 6px}
         {% if group.name == 'admin' %}
         <a href="{% url 'import_file' %}">Import Data</a>
         <div class="dropdown">
-        <button class="dropbtn">Add
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="{% url 'add_student' %}">Students</a>
-            <a href="{% url 'add_internship' %}">Internship</a>
-            <a href="{% url 'add_intern_assign' %}">Assign Internship</a>
-        </div>
-        </div>
-        <div class="dropdown">
-        <button class="dropbtn">Update
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="{% url 'display_students' %}">Students</a>
-            <a href="{% url 'display_internship' %}">Internship</a>
-            <a href="{% url 'display_internshipassignment' %}">Assign Internship</a>
-        </div>
-        </div>
-
-
-        <div class="dropdown">
-        <button class="dropbtn">View
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="{% url 'display_students' %}">Students</a>
-            <a href="{% url 'display_internship' %}">Internship</a>
-            <a href="{% url 'display_internshipassignment' %}">Internship Assignment</a>
-            <a href="{% url 'remove-data' %}">Clear</a>
-        </div>
-    </div>
-        <div class="dropdown">
-        <button class="dropbtn">Delete
+        <button class="dropbtn">View Data
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
@@ -164,21 +131,20 @@ h1 {letter-spacing: 6px}
     {% endfor %}
     <div><a href="{% url 'logout' %}">Logout</a></div>
 
-</div>
+ </div>
 
 
-</header>
+  {% block content %}
+{% load crispy_forms_tags %}
 
+<form method="POST">
+  {{form.as_p}}
+  {% csrf_token %}
+  <input type="submit" value="Insert" class = "btn btn-primary btn-lg">
 
-<body>
+</form>
+{% endblock %}
 
-  <H2>Internship:</H2>
-  <p>For more infomation about internships please visit the UNH Career and Professional Success website.
-
-Note: Non-degree students are not permitted to register for internships through UNH unless they are enrolled in a graduate certificate program.</p>
-<br><br><br><br>
-
-</body>
 
 <!-- End Page Content -->
 </div>

@@ -90,15 +90,17 @@ class InternshipForm(forms.ModelForm):
 
 
 class InternshipAssignmentForm(forms.ModelForm):
-	"""
-	intership Assignment form
-	"""
+    """
+    intership Assignment form
+    """
+    student_id = forms.ModelChoiceField(queryset=Student.objects.all(), required=True)
+    internship_id = forms.ModelChoiceField(queryset=Internship.objects.all(),required=True)
 
-	class Meta: # pylint: disable=R0903
-		"""
-		fields for intership Assignment form
-		"""
 
-		model = Internship_Assignment
-		fields = ['course_id','credits','semester','year',
+    class Meta: # pylint: disable=R0903
+        """
+	    fields for intership Assignment form
+	    """
+        model = Internship_Assignment
+        fields = ['student_id', 'internship_id','course_id','credits','semester','year',
 			'instructor','start_date','end_date']

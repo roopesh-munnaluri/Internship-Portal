@@ -152,6 +152,8 @@ h1 {letter-spacing: 6px}
 
             <thead align="center">
                 <tr>
+                    <th>Student</th>
+                    <th>Internship</th>
                     <th>Course ID</th>
                     <th>Credits</th>
                     <th>Semester</th>
@@ -166,6 +168,8 @@ h1 {letter-spacing: 6px}
 
                 {% for internshipassignment_item in Internshipassignment_items %}
                 <tr class="item" align="center">
+                    <td>{{internshipassignment_item.student_id}}</td>
+                    <td>{{internshipassignment_item.internship_id}}</td>
                     <td>{{internshipassignment_item.course_id}}</td>
                     <td>{{internshipassignment_item.credits}}</td>
                     <td>{{internshipassignment_item.semester}}</td>
