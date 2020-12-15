@@ -30,7 +30,7 @@ class FileuploadView(TemplateView): #pylint: disable = no-member
     Template for uploading excel sheet to database
     """
     template_name = 'Upload.html'
-    @allowed_users(allowed_roles=['admin'])
+    @allowed_users(allowed_roles=['Instructor'])
     def import_file(request): #pylint: disable = no-self-argument
         """
         getting file name from template
@@ -50,7 +50,7 @@ class StudentListView(ListView): # pylint: disable=too-many-ancestors
     """
     model = Student
 
-    @allowed_users(allowed_roles=['admin'])
+    @allowed_users(allowed_roles=['Instructor'])
     def display_students(request): #pylint: disable = no-self-argument
         """
         searching Student table based on first_name and last_name provided by user
@@ -78,7 +78,7 @@ class InternshipListView(ListView): # pylint: disable=too-many-ancestors
     listing all the details of Internship table
     """
 
-    @allowed_users(allowed_roles=['upcoming','admin'])
+    @allowed_users(allowed_roles=['upcoming','Instructor','current'])
     def display_internship(request): #pylint: disable = no-self-argument
         """
         displaying and searching Internship table based on organization_name provided by user
@@ -104,7 +104,7 @@ class InternshipassignmentListView(ListView): # pylint: disable=too-many-ancesto
     """
     listing all the details of Internship table
     """
-    @allowed_users(allowed_roles=['admin'])
+    @allowed_users(allowed_roles=['Instructor'])
     def display_internshipassignment(request): #pylint: disable = no-self-argument
         """
         displaying and searching Internship_Assignment table based on year provided by user
@@ -206,33 +206,89 @@ class AddView(TemplateView):
 
 
 class UpdateView(TemplateView):
-    @allowed_users(allowed_roles=['admin'])
+    @allowed_users(allowed_roles=['Instructor'])
     def studentupdate(request,pk):
         context ={}
         obj = get_object_or_404(Student, pk = pk)
         student_form = StudentForm(request.POST or None,instance=obj)
         if student_form.is_valid():
             student_form.save()
-        messages.success(request, 'Student has been successfully updated')
+            messages.success(request, 'Student has been successfully updated')
         context["student_form"] = student_form
         return render(request, "studentupdate.html", context)
 
+    @allowed_users(allowed_roles=['Instructor'])
+    def update_internship(request,pk):
+        """
+        update internship
+        """
+        context ={}
+        obj = get_object_or_404(Internship, pk = pk)
+        internship_form = InternshipForm(request.POST or None,instance=obj)
+        if internship_form.is_valid():
+            internship_form.save()
+            messages.success(request, 'Details updated successfully! \
+                Go to Internship page to view the updates.')
+        context["internship_form"] = internship_form
+        return render(request, "update_view_internship.html", context)
+
+    @allowed_users(allowed_roles=['Instructor'])
+    def update_internshipassignment(request,pk):
+        """
+        update internship Assignment
+        """
+        context ={}
+        obj = get_object_or_404(Internship_Assignment, pk = pk)
+        internshipAssignment_form = InternshipAssignmentForm(request.POST or None,instance=obj)
+        if internshipAssignment_form.is_valid():
+            internshipAssignment_form.save()
+            messages.success(request, 'Details updated successfully!')
+        context["internshipAssignment_form"] = internshipAssignment_form
+        return render(request, "update_view_internshipassignment.html",
+                      context)
+
+
 class DeleteView(TemplateView):
-    @allowed_users(allowed_roles=['admin'])
+    @allowed_users(allowed_roles=['Instructor'])
     def deleteStudent(request, pk):
         context ={}
         obj = get_object_or_404(Student, pk = pk)
         student_form = StudentForm(request.POST or None,instance=obj)
         if student_form.is_valid():
             student_form.save()
-        messages.success(request, 'Student has been successfully updated')
+            messages.success(request, 'Student has been successfully updated')
         context["student_form"] = student_form
         if request.method =="POST":
             obj.delete()
             return HttpResponseRedirect("/")
         return render(request, "delete.html", context)
+    @allowed_users(allowed_roles=['Instructor'])
+    def delete_internship(request, pk):
+        """
+        delete internship
+        """
+        context ={}
+        obj = get_object_or_404(Internship, pk = pk)
+        if request.method =="POST":
+            obj.delete()
+            return HttpResponseRedirect("/")
+        return render(request, "delete.html", context)
 
-@allowed_users(allowed_roles=['admin'])
+    @allowed_users(allowed_roles=['Instructor'])
+    def delete_internshipassignment(request, pk):
+        """
+        delete internship Assignment
+        """
+        context ={}
+        obj = get_object_or_404(Internship_Assignment, pk = pk)
+        if request.method =="POST":
+            obj.delete()
+            return HttpResponseRedirect("/")
+        return render(request, "delete.html",
+                      context)
+
+
+@allowed_users(allowed_roles=['Instructor'])
 def remove_all_data(request):
     """
     clearing the database tables

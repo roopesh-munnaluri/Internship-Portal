@@ -23,4 +23,10 @@ urlpatterns = [
         path('add_student/',AddView.add_student,name='add_student'),
         path('add_internship/',AddView.add_Intern,name='add_internship'),
         path('add_intern_assign/',AddView.add_intern_assign,name='add_intern_assign'),
+        path('update_internship/<int:pk>/',UpdateView.update_internship,name = 'update_internship'),
+        path('delete_internship/<int:pk>/',DeleteView.delete_internship,name='delete_internship'),
+        path('update_internshipassignment/<int:pk>/',UpdateView.update_internshipassignment,name = 'update_internshipassignment'),
+        path('delete_internshipassignment/<int:pk>/',DeleteView.delete_internshipassignment,name='delete_internshipassignment')
+
+
     ]
