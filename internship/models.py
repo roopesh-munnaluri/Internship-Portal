@@ -20,7 +20,7 @@ class Student(models.Model):
     linkedin = models.CharField("Linkedin URL", max_length=255)
 
     def __str__(self):
-        name = self.last_name + " " +  self.first_name
+        name = self.last_name + ", " +  self.first_name
         return name
 
 class Internship(models.Model):
@@ -39,7 +39,7 @@ class Internship(models.Model):
     supervisor_phone = models.CharField("SuperVisor Phone", max_length=255)
 
     def __str__(self):
-        return self.position + self.organization_name
+        return self.position + " - " +self.organization_name
 
 
 class Internship_Assignment(models.Model): #pylint: disable =invalid-name

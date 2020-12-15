@@ -17,8 +17,10 @@ urlpatterns = [
         path('login/',Authentication.login_request,name = 'login'),
         path('logout/',Authentication.logout_request,name='logout'),
         path('request/',Authentication.register_request,name = 'register'),
-        path('update_student/<int:pk>/', views.studentupdate, name='update_student'),
-        path('delete/<int:pk>/', views.deleteStudent, name="delete_student" ),
-        path('register/',Authentication.register_request,name = 'register')
-
+        path('update_student/<int:pk>/', UpdateView.studentupdate, name='update_student'),
+        path('delete/<int:pk>/', DeleteView.deleteStudent, name="delete_student" ),
+        path('register/',Authentication.register_request,name = 'register'),
+        path('add_student/',AddView.add_student,name='add_student'),
+        path('add_internship/',AddView.add_Intern,name='add_internship'),
+        path('add_intern_assign/',AddView.add_intern_assign,name='add_intern_assign'),
     ]
