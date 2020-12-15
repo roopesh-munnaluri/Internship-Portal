@@ -107,16 +107,26 @@ h1 {letter-spacing: 6px}
         {% if group.name == 'Instructor' %}
         <a href="{% url 'import_file' %}">Import Data</a>
         <div class="dropdown">
-        <button class="dropbtn">View Data
+        <button class="dropbtn">Add
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="{% url 'add_student' %}">Students</a>
+            <a href="{% url 'add_internship' %}">Internship</a>
+            <a href="{% url 'add_intern_assign' %}">Assign Internship</a>
+        </div>
+        </div>
+        <div class="dropdown">
+        <button class="dropbtn">View
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
             <a href="{% url 'display_students' %}">Students</a>
             <a href="{% url 'display_internship' %}">Internship</a>
-            <a href="{% url 'display_internshipassignment' %}">Internship Assignment</a>
-            <a href="{% url 'remove-data' %}">Clear</a>
+            <a href="{% url 'display_internshipassignment' %}">Assign Internship</a>
         </div>
         </div>
+
         {% endif %}
         {% if group.name == 'upcoming' %}
         <div class="dropdown">
@@ -131,30 +141,38 @@ h1 {letter-spacing: 6px}
     {% endfor %}
     <div><a href="{% url 'logout' %}">Logout</a></div>
 
- </div>
+</div>
 
 
   {% block content %}
+{% load crispy_forms_tags %}
+
 
 <div class="main">
     <!-- Create a Form -->
-    <form method="POST">
+    <form method="POST"  style="text-align: left;">
         <!-- Security token by Django -->
         {% csrf_token %}
-        <br/>
-        <h4>Hit delete button to delete record from database<h4>
-        <br>
 
-        <input type="submit" value="DELETE" style="width:13%" class="nav-link text-light">
         <br/>
+        <!-- form as paragraph -->
+        {{ internship_form.as_p }}
 
-        <br><br><br><br>
-        <a style=" width:13%;" class="nav-link text-light" href="{% url 'display_students' %}" role="button"> Cancel</a>
+        <input type="submit" value="Update" style="background-color:grey; color:black">
+
+        {% if messages %}
+          <br/>
+          {% for message in messages %}
+          <br/>
+            {{ message }}
+          {% endfor %}
+        {% endif %}
 
     </form>
-</div>
-{% endblock %}
 
+</div>
+
+{% endblock %}
 
 
 

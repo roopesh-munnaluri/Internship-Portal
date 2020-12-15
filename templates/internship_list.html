@@ -140,19 +140,29 @@ function sortTable() {
   <div class="navbar">
     <a href="{% url 'home' %}">Home</a>
     {% for group in user.groups.all %}
-        {% if group.name == 'admin' %}
+        {% if group.name == 'Instructor' %}
         <a href="{% url 'import_file' %}">Import Data</a>
         <div class="dropdown">
-        <button class="dropbtn">View Data
+        <button class="dropbtn">Add
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="{% url 'add_student' %}">Students</a>
+            <a href="{% url 'add_internship' %}">Internship</a>
+            <a href="{% url 'add_intern_assign' %}">Assign Internship</a>
+        </div>
+        </div>
+        <div class="dropdown">
+        <button class="dropbtn">View
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
             <a href="{% url 'display_students' %}">Students</a>
             <a href="{% url 'display_internship' %}">Internship</a>
-            <a href="{% url 'display_internshipassignment' %}">Internship Assignment</a>
-            <a href="{% url 'remove-data' %}">Clear</a>
+            <a href="{% url 'display_internshipassignment' %}">Assign Internship</a>
         </div>
         </div>
+
         {% endif %}
         {% if group.name == 'upcoming' %}
         <div class="dropdown">
@@ -169,6 +179,7 @@ function sortTable() {
 
 </div>
 
+
   <br><br><br><br>
 
 {% load crispy_forms_tags %}
@@ -184,7 +195,7 @@ function sortTable() {
           <br>
 
 
-        <table id="example" class="sortable" style="text-align:center;" cellspacing="50">
+        <table id="example" class="sortable" style="text-align:center; overflow: scroll;" cellspacing="50" >
 
             <thead align="center">
                 <tr>
@@ -215,6 +226,8 @@ function sortTable() {
                     <td>{{internship_item.supervisor_position}}</td>
                     <td>{{internship_item.supervisor_email}}</td>
                     <td>{{internship_item.supervisor_phone}}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'update_internship' internship_item.pk %}">Update</a></td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'delete_internship' internship_item.pk %}">Delete</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

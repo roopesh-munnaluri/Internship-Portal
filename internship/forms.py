@@ -23,11 +23,7 @@ class StudentSearchForm(forms.ModelForm): # pylint: disable=too-few-public-metho
         model = Student
         fields = ['name']
 
-class StudentModifyForm(forms.ModelForm):
-    student_id = forms.ModelChoiceField(queryset=Student.objects.all(), required=True)
-    class Meta:
-        model = Student
-        fields = ['student_id']
+
 
 class InternshipSearchForm(forms.ModelForm): # pylint: disable=too-few-public-methods
     """
