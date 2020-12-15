@@ -15,19 +15,26 @@ class StudentSearchForm(forms.ModelForm): # pylint: disable=too-few-public-metho
     Used for searching Student Data
 
     """
+    name =  forms.CharField(required=False)
     class Meta: # pylint: disable=too-few-public-methods
         """
         For including fields for searching
         """
         model = Student
-        fields = ['last_name']
+        fields = ['name']
 
+class StudentModifyForm(forms.ModelForm):
+    student_id = forms.ModelChoiceField(queryset=Student.objects.all(), required=True)
+    class Meta:
+        model = Student
+        fields = ['student_id']
 
 class InternshipSearchForm(forms.ModelForm): # pylint: disable=too-few-public-methods
     """
     Used for searching Internship Data
 
     """
+    organization_name =  forms.CharField(required=False)
     class Meta: # pylint: disable=too-few-public-methods
         """
         For including fields for searching
@@ -40,6 +47,7 @@ class InternshipassignmentSearchForm(forms.ModelForm): # pylint: disable=too-few
     Used for searching Internship Data
 
     """
+    year = forms.CharField(required=False)
     class Meta: # pylint: disable=too-few-public-methods
         """
         For including fields for searching

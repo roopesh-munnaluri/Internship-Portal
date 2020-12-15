@@ -117,7 +117,7 @@ h1 {letter-spacing: 6px}
         </div>
         </div>
         <div class="dropdown">
-        <button class="dropbtn">Update
+        <button class="dropbtn">Modify
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
@@ -139,17 +139,6 @@ h1 {letter-spacing: 6px}
             <a href="{% url 'remove-data' %}">Clear</a>
         </div>
     </div>
-        <div class="dropdown">
-        <button class="dropbtn">Delete
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="{% url 'display_students' %}">Students</a>
-            <a href="{% url 'display_internship' %}">Internship</a>
-            <a href="{% url 'display_internshipassignment' %}">Internship Assignment</a>
-            <a href="{% url 'remove-data' %}">Clear</a>
-        </div>
-        </div>
         {% endif %}
         {% if group.name == 'upcoming' %}
         <div class="dropdown">

@@ -64,7 +64,8 @@ class StudentListView(ListView): # pylint: disable=too-many-ancestors
             'form' : form
         }
         if request.method == 'POST': #pylint: disable = no-member
-            student_items = Student.objects.filter(last_name__icontains=form['last_name'].value()) #pylint: disable = no-member
+            name = form['name'].value()
+            student_items = Student.objects.filter(last_name__icontains=name)| Student.objects.filter(first_name__icontains = name) #pylint: disable = no-member
             context = {
                 "student_items" : student_items,
                 "form": form
@@ -113,7 +114,7 @@ class InternshipassignmentListView(ListView): # pylint: disable=too-many-ancesto
         form = InternshipassignmentSearchForm(request.POST or None) #pylint: disable = no-member
         context = {
             'button' : button,
-            'Internshipassignmet_items' : Internshipassignment_items ,
+            'Internshipassignmet_items' : Internshipassignment_items,
             'form' : form
         }
         if request.method == 'POST':
@@ -204,32 +205,32 @@ class AddView(TemplateView):
         return render(request, 'add_intern_assign.html', {'form':form})
 
 
-
-@allowed_users(allowed_roles=['admin'])
-def studentupdate(request,pk):
-    context ={}
-    obj = get_object_or_404(Student, pk = pk)
-    student_form = StudentForm(request.POST or None,instance=obj)
-    if student_form.is_valid():
-        student_form.save()
+class UpdateView(TemplateView):
+    @allowed_users(allowed_roles=['admin'])
+    def studentupdate(request,pk):
+        context ={}
+        obj = get_object_or_404(Student, pk = pk)
+        student_form = StudentForm(request.POST or None,instance=obj)
+        if student_form.is_valid():
+            student_form.save()
         messages.success(request, 'Student has been successfully updated')
-    context["student_form"] = student_form
-    return render(request, "studentupdate.html", context)
+        context["student_form"] = student_form
+        return render(request, "studentupdate.html", context)
 
-@allowed_users(allowed_roles=['admin'])
-def deleteStudent(request, pk):
-    context ={}
-    obj = get_object_or_404(Student, pk = pk)
-    student_form = StudentForm(request.POST or None,instance=obj)
-    if student_form.is_valid():
-        student_form.save()
+class DeleteView(TemplateView):
+    @allowed_users(allowed_roles=['admin'])
+    def deleteStudent(request, pk):
+        context ={}
+        obj = get_object_or_404(Student, pk = pk)
+        student_form = StudentForm(request.POST or None,instance=obj)
+        if student_form.is_valid():
+            student_form.save()
         messages.success(request, 'Student has been successfully updated')
-    context["student_form"] = student_form
-
-    if request.method =="POST":
-        obj.delete()
-        return HttpResponseRedirect("/")
-    return render(request, "delete.html", context)
+        context["student_form"] = student_form
+        if request.method =="POST":
+            obj.delete()
+            return HttpResponseRedirect("/")
+        return render(request, "delete.html", context)
 
 @allowed_users(allowed_roles=['admin'])
 def remove_all_data(request):
